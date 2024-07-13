@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>billing</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/brands.min.css">
+
+     <!-- Css Styles -->
+     <link rel="stylesheet" href="#" type="text/css">
+     <style>
+        @media print {
+            #titleAmount{
+                border: 4px solid #c19644;
+                border-radius: 25px;
+            }
+            #output{
+                margin-top: -20px;
+
+            }
+            .form-control{
+                border: none ;
+            }
+          
+        }
+     </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+          
+        <img src="jaaz.png" alt="" style="width: 300px; height: 300px; border-radius: 50%; display: inline-block;">
+        <div class="heading" style="position: absolute; margin-left: 780px; margin-top: -240px;">
+            <h3 style="font-weight: bold; color: #c19644;">JAAZ JEWELLERY</h3>
+            <P style="font-size: 13px;">Old No.AA3, New, No.10, 2nd Avenue, Anna Nagar</P>
+            <P style="font-size: 13px;">Chennai, Tamil Nadu 600040</P>
+            <P style="font-size: 13px;"><Span style="color: #ca9533; font-weight: bold;">Phone No :</Span>+91 82708 53849</P>
+            <P style="font-size: 13px;"><Span style="color: #ca9533; font-weight: bold;">Phone No :</Span>+91 82708 53850</P>
+            <P style="font-size: 13px;"><Span style="color: #ca9533; font-weight: bold;">Email :</Span>mohamedjaseem774@gmail.com</P>
+
+        </div>
+    </div>
+    </div>
+    <div class="container mt-5">
+        <h2 class="mb-5 text-center" style="border-top: 3px solid #c19644; border-bottom: 3px solid #c19644; padding: 10px 0;">Tax Invoice</h2>
+        <form action="" id="invoiceForm">
+            <div class="row mt-5 mb-5">
+                
+                    <label for="customerName" style="display: inline-block; margin-top: 10px;">Customer Name:</label>
+                    <input type="text" style="width: 170px; margin-top: -32px; margin-left: 115px; " class="form-control" id="customerName" placeholder="Enter Customer Name" >
+               
+
+                    <label for="PhoneNo"  style="position: absolute; margin-top: 17px;">Customer Phone No:</label>
+                    <input type="text" style="width: 141px; position: absolute;margin-left:145px; margin-top: 10px;" class="form-control" id="PhoneNo"  placeholder="Enter Phone No">
+
+
+            
+                    <label for="invoiceNo"  style="position: absolute; right: 215px; margin-top: -28px;">Invoice No:</label>
+                    <input type="text" style="width: 150px; position: absolute; right: 60px; margin-top: -35px;  margin-left: 120px;" class="form-control" id="invoiceNo" placeholder="Enter Invoice No">
+
+                 
+
+                    <label for="invoiceCity" style="position: absolute; right: 215px; margin-top: 62px;">Village/City:</label>
+                    <input type="text" style="width: 150px; position: absolute; right: 60px; margin-top: 55px;" class="form-control" id="invoiceCity" placeholder="Enter Village/City">
+               
+                    <label for="invoiceDate" style="position: absolute; right: 215px; margin-top: 17px;">Invoice Date:</label>
+                    <input type="text" style="width: 150px; position: absolute; right: 60px; margin-top: 10px;" class="form-control" id="invoiceDate" >
+
+
+
+            </div>
+
+
+            <table class="table table-bordered" style="margin-top: 100px;">
+                <thead>
+                    <tr style="background-color: #c19644; color: #ffff;">
+                        <th scope="col" style="text-align: center;">Item Name</th>
+                        <th scope="col" style="text-align: center;">HSN/ SAC</th>
+                        <th scope="col" style="text-align: center;">Quantity</th>
+                        <th scope="col" style="text-align: center;">Gram</th>
+                        <th scope="col" style="text-align: center;">Price/ Unit</th>
+                        <th scope="col" style="text-align: center;">Amount</th>
+                        <th scope="col" style="text-align: center;" class="hidden-print">Action</th>
+                     </tr>
+                </thead>
+
+                <tbody id="invoiceItems"></tbody>
+
+            
+            </table>
+
+            
+          <div class="container-fluid">
+            <div class="row">
+                <div  style="margin-top: 15px; width: 40%; display: inline-block; text-align: left;">
+                    <button type="text" class="btn btn-primary hidden-print" style="width: 100%; border-radius: 10px; margin-bottom: 18px; outline: none;" onclick="addInvoiceItem()">Add Item</button>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr style="background-color: #c19644; color: #ffff;">
+                                <th scope="col" style="text-align: center;">Tax &nbsp;type</th>
+                                <th scope="col" style="text-align: center;">Taxable Amount</th>
+                                <th scope="col" style="text-align: center;">Rate</th>
+                                <th scope="col" style="text-align: center;">Tax Amount</th>
+                             </tr>
+                        </thead>
+        
+                        <tbody style="font-weight:bold; background-color: #e9e7e7;">
+                            <td style="text-align: center;">IGST</td>
+                            <td  style="text-align: center;"><label id="Taxable"></label></td>
+                            <td  style="text-align: center;"><label id="rate"></label></td>
+                            <td  style="text-align: center;"><label id="Amount"></label></td>
+
+                        </tbody>
+        
+                    
+                    </table>
+                   <div>
+                    <p style="background-color: #c19644; color: rgb(255, 255, 255); font-size: 20px; padding-left: 10px; font-weight: bold; ">Invoice Amount In Words:</p>
+                    
+                    <h1 id="output" style="font-size: 15px;text-align: left; padding: 30px 0; padding-left: 20px; background-color: #e9e7e7; text-transform: uppercase;"></h1>
+                   </div>
+                    <div>
+                    <p id="output" style="background-color: #c19644; color: rgb(255, 255, 255); font-size: 20px; padding-left: 10px; font-weight: bold;">Terms And Conditions:</p>
+                    
+                    <p id="output" style="font-size: 15; text-align: left; padding: 30px 0; padding-left: 20px; background-color: #e9e7e7;">Thank You For Business With Us</p>
+                   </div>
+
+                   
+                   <div id="AmountBottom" style=" position: absolute; left: 1600px; margin-top: -18%; ">
+                   
+                          
+                                <label for="SupTotal" id="titleAmount" style="width: 300px; margin-left: -10px; text-align: center; background: #c19644; color: #ffff; font-size: 18.5px;">Amounts:</label>
+
+                           
+                       
+                    
+                                <label for="SupTotal" style="position: absolute;  margin-top: 48px; left: -5px;">SubTotal:</label>
+                                <input type="number" id="subtotal" class="form-control" style="width: 150px; margin-top: 10px; margin-left: 125px;" readonly>
+                    
+                                <label for="SupTotal" style="position: absolute;  margin-top: 15px;">Discount (%):</label>
+                                <input type="number" id="Dis" onkeyup="disCount()" class="form-control" style="width: 150px; margin-top: 10px; margin-left: 125px;" required >
+                                
+                                <label for="SupTotal" style="position: absolute;  margin-top: 15px;"> Discount Amount:</label>
+                                <input type="number" id="disttl" class="form-control" readonly style="width: 150px; margin-top: 10px; margin-left: 125px;">
+                                
+                                <label for="SupTotal" style="position: absolute;  margin-top: 15px;"> Tax (%):</label> 
+                                <input type="number" id="tax" onkeyup="calculateTax()" class="form-control" style="width: 150px; margin-top: 10px; margin-left: 125px;" required>
+                               
+                                <label for="SupTotal" style="position: absolute;  margin-top: 15px;">Tax Amount:</label>  
+                                <input type="number" id="taxttl" class="form-control" readonly style="width: 150px; margin-top: 10px; margin-left: 125px;">
+                                
+                                <label for="SupTotal" style="position: absolute;  margin-top: 15px;">Total:</label>
+                                <input type="number" id="Nettotal" class="form-control" readonly style="width: 150px; margin-top: 10px; margin-left: 125px;">
+        
+                                <label for="SupTotal" style="position: absolute;  margin-top: 15px;">Received:</label>
+                                <input type="number" id="Received" onkeyup="Balance()" class="form-control" style="width: 150px; margin-top: 10px; margin-left: 125px;">
+                                
+                                <label for="SupTotal" style="position: absolute;  margin-top: 15px;">Balance:</label>
+                                <input type="number" id="Balance" class="form-control" readonly style="width: 150px; margin-top: 10px; margin-left: 125px;">
+                        
+                        
+                </div>
+                <div class="row">
+                      <div class="form-group col-lg-7">
+                <label for="totalAmount" style="font-weight: bold;">Total Amount</label>
+                <input type="text" class="form-control" id="totalAmount" disabled readonly>
+               </div>
+               <div class="col-lg-5" style="margin-top: 24px; ">
+                   <button type="submit" class="btn btn-success mt-2 hidden-print" style="width: 100%; border-radius: 10px; outline: none;" id="Generate">Generate Invoice</button>  
+               </div>
+                </div>
+                <button type="text" class="btn btn-danger btn-print mt-4 hidden-print" style="width: 100%; border-radius: 10px; outline: none;" onclick="printInvoice()">Print Invoice</button>
+                </div>  
+            </div>
+          </div>
+    
+
+
+          <div class="container">
+            <div class="row">
+                <p style="font-weight: bold; margin-left: 750px; margin-top: 130px; font-size: 20px;">For,JAAZ JEWELLERY</p>
+                <p style=" margin-left: 750px; margin-top: 100px; font-size: 20px;">Authorized Signatory</p>
+            </div>
+          </div>
+        </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js" integrity="sha512-nnzkI2u2Dy6HMnzMIkh7CPd1KX445z38XIu4jG1jGw7x5tSL3VBjE44dY4ihMU1ijAQV930SPM12cCFrB18sVw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.slim.min.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj+KsslFkCOt3TvJrX2AV/Gc3wOqA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+      <script>
+        let itemCounter = 0;
+
+        function addInvoiceItem(){
+            itemCounter++;
+
+
+            const newItemRow =`<tr id="itemRow${itemCounter}">
+                <td>  <select name="select" id="select" class="form-control"  style="width: 170px;" autofocus>   <!--multiple-->
+            <option value="1">Enter Item Name</option>
+            <option value="2">Anklet</option>
+            <option value="3">Gold Chain</option>
+            <option value="4">Gold Ring</option>
+            <option value="5">Silver Ring</option>
+            <option value="6">Silver Chain</option>
+            <option value="7">Bangles</option>
+            <option value="8">Hand Chains</option>
+            <option value="9">Bracelet </option>
+           
+
+        </select></td>
+                <td></td>
+                <td><input type="number" class="form-control " value="1" placeholder="Enter Quantity" ></td>
+                <td><input type="number" class="form-control quantity" placeholder="Enter Gram" required></td>
+                <td><input type="number" class="form-control unitprice" placeholder="Enter Unit Price" required></td>
+                <td><input type="text" class="form-control totalItemprice" id="totalItemprice" disabled readonly></td>
+                <td><button type="button" class="btn btn-danger  hidden-print" onclick="removeInvoiceItem(${itemCounter})">Remove</button></td>`;
+
+
+        $("#invoiceItems").append(newItemRow);
+
+        updateTotalAmount();
+        disCount();
+       calculateTax();
+       Balance();
+       
+      }
+          
+        function removeInvoiceItem(itemId){
+            $(`#itemRow${itemId}`).remove();
+            updateTotalAmount();
+        }
+        function updateTotalAmount(){
+            let totalAmount = 0;
+            
+            
+            $("tr[id^='itemRow']").each(function(){
+                var quantity = parseFloat($(this).find(".quantity").val()) || 0;
+                var unitprice = parseFloat($(this).find(".unitprice").val()) || 0;
+                var totalItemprice = quantity * unitprice;
+
+                $(this).find(".totalItemprice").val(totalItemprice.toFixed(2));
+
+                totalAmount+= totalItemprice;
+            });
+
+            $("#totalAmount").val(totalAmount.toFixed(2));
+            
+        }
+        
+        function disCount(){
+        var amt =document.getElementById("totalAmount").value;
+        document.getElementById("subtotal").value=amt;
+        var Dis = document.getElementById("Dis").value;
+        var disCount = (Dis*amt)/100;
+        var nettl =Number(amt)-Number(disCount);
+        var disCount1 = Math.round(disCount);
+        var nettl1 = Math.round(nettl);
+        document.getElementById("disttl").value=disCount1;
+        document.getElementById("Nettotal").value=nettl1;
+
+
+        let Taxable = document.getElementById("Taxable");
+        let Taxables = `₹ ${nettl1}`;
+        Taxable.innerHTML=Taxables;
+    }
+
+
+
+    function calculateTax(){
+        var amt =document.getElementById("Nettotal").value;
+        var tax = document.getElementById("tax").value;
+        let rate = document.getElementById("rate");
+        let rates = `${tax}%`;
+        rate.innerHTML=rates;
+
+
+        var taxAmount = (tax*amt)/100;
+        var taxAmount1 = Math.round(taxAmount);
+
+        let Amount = document.getElementById("Amount");
+        let Amounts = `₹ ${taxAmount1}`;
+        Amount.innerHTML=Amounts;
+
+        var nettll =Number(amt)+Number(taxAmount);
+        document.getElementById("taxttl").value=taxAmount1;
+        var nettll1 = Math.round(nettll);
+        document.getElementById("Nettotal").value=nettll1;
+        document.getElementById("totalAmount").value=nettll1;
+    }
+
+    function Balance(){
+        var amt =document.getElementById("Nettotal").value;
+        var rec = document.getElementById("Received").value;
+        
+        var net =Number(rec)-Number(amt);
+        document.getElementById("Balance").value=net;
+        
+        
+    }
+
+    function GenerateWords(){
+    document.getElementById("Nettotal").value;
+     
+    let output = document.getElementById("output");
+        output.innerHTML=numberToWords.toWords(Nettotal.value);
+    }
+
+        //next automatic set date
+
+
+
+        $(document).ready(function(){
+            const currentDate = new Date();
+            const formattedDate = currentDate.toISOString().slice(0, 10);
+            $("#invoiceDate").val(formattedDate);
+        });
+
+
+
+        //next
+
+
+        $("#invoiceForm").submit(function(event){
+            event.preventDefault();
+            updateTotalAmount();
+            disCount();
+            calculateTax();
+            Balance();
+            GenerateWords();
+        });
+
+        function printInvoice(){
+            window.print();
+        }
+        
+
+    </script>
+            <script src="js/jquery.min.js"></script>
+    <script src="js/numberToWords.js"></script>
+
+                 <script src="js/bootstrap.min.js"></script>
+               
+            </body>
+            </html>
